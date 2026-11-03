@@ -340,6 +340,14 @@ function startSimulation() {
     }, 1500);
 }
 </script>
-
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js")
+      .then(() => console.log("Çevrimdışı kullanım hazır!"))
+      .catch(error => console.log("Service Worker hatası:", error));
+  });
+}
+</script>
 </body>
 </html>
