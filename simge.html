@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yediklerimi Yak - Simge Oluşturucu</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #fff3e8;
+  text-align: center;
+  padding: 30px 15px;
+}
+h1 { color: #f47721; }
+canvas {
+  width: 180px;
+  height: 180px;
+  border-radius: 20px;
+  margin: 20px;
+}
+button {
+  display: block;
+  margin: 12px auto;
+  padding: 14px 22px;
+  border: none;
+  border-radius: 10px;
+  background: #f47721;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<h1>🍟 Yediklerimi Yak</h1>
+<p>Uygulama simgelerini oluştur ve indir.</p>
+
+<canvas id="iconCanvas" width="512" height="512"></canvas>
+
+<button onclick="downloadIcon(192, 'icon-192.png')">
+192x192 Simgeyi İndir
+</button>
+
+<button onclick="downloadIcon(512, 'icon-512.png')">
+512x512 Simgeyi İndir
+</button>
+
+<button onclick="downloadIcon(180, 'apple-touch-icon.png')">
+180x180 Apple Simgeyi İndir
+</button>
+
+<script>
+function drawIcon(size) {
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+
+  const ctx = canvas.getContext("2d");
+
+  ctx.fillStyle = "#f47721";
+  ctx.fillRect(0, 0, size, size);
+
+  ctx.fillStyle = "#ffffff";
+  ctx.beginPath();
+  ctx.arc(size / 2, size / 2, size * 0.38, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.font = `${size * 0.48}px Arial`;
+  ctx.fillText("🍟", size / 2, size / 2);
+
+  return canvas;
+}
+
+function downloadIcon(size, filename) {
+  const canvas = drawIcon(size);
+  const link = document.createElement("a");
+  link.download = filename;
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+}
+
+const preview = document.getElementById("iconCanvas");
+const ctx = preview.getContext("2d");
+const icon = drawIcon(512);
+ctx.drawImage(icon, 0, 0, 512, 512);
+</script>
+
+</body>
+</html>
